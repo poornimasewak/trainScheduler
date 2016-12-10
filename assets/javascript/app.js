@@ -47,6 +47,8 @@
 
           var fTrainTime = childSnapshot.val().firstTrainTime;
 
+          var key = childSnapshot.key;
+
 
           var tFrequency = childSnapshot.val().frequency;
 
@@ -55,7 +57,7 @@
           // console.log('current time : '+moment(currentTime).format("HH:mm"));
 
           // Difference between the times
-          var diffTime = moment().diff(moment.unix(fTrainTime), "minutes");
+          var diffTime = moment().diff(moment(fTrainTime, "HH:mm"), "minutes");
 
           // Time apart (remainder)
           var tRemainder = diffTime % tFrequency;
@@ -75,6 +77,8 @@
 
       //removing train data from the web page once user click on remove button
       $("body").on("click", ".remove-train", function() {
+
+
           $(this).closest('tr').remove();
           var getKey = $(this).parent().parent().attr('id');
           database.ref().child(getKey).remove();
